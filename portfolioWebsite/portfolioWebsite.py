@@ -29,7 +29,7 @@ css: dict = {
     },
     "main":{
         "property":{
-            "width" : "100%",
+            "width": "100%",
             "height": "84vh",
             "padding" : "15rem 0rem",
             "align_items": "center",
@@ -104,7 +104,7 @@ def landing() -> rx.Component:
     return rx.vstack(
         header,
         main,
-        background="radial-gradient(circle, rgba(255,255,255,0.09) 1px, transparent 1px)",
+        background="radial-gradient(circle, rgba(255,255,255,0.09) 2px, transparent 2px)",
         background_size="25px 25px",
     )
 
