@@ -29,7 +29,7 @@ css: dict = {
     },
     "main":{
         "property":{
-            "width": "100%",
+            "width" : "100%",
             "height": "84vh",
             "padding" : "15rem 0rem",
             "align_items": "center",
@@ -109,5 +109,5 @@ def landing() -> rx.Component:
     )
 
 
-app = rx.App()
+app = rx.App(style = css.get("app"))
 app.add_page(landing)
