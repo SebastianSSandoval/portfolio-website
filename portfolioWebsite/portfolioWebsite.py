@@ -7,14 +7,21 @@ class State(rx.State):
 
     pass
 
+dots : dict = {
+    "@keyframes dots": {
+        "0%":{"background_position": "0 0"},
+        "100%":{"background_position": "40px 40px" },
+    },
+    "animation" : "dots 4s linear infinite alternate-reverse both"
+}
 
 css: dict = {
     "app": {
-        "_dark" :{
+        "_dark": {
             "bg": "#15171b"
         }
     },
-    
+
     "header": {
         "width": "100%",
         "height": "50px",
@@ -27,13 +34,13 @@ css: dict = {
         ],
         "transition": "all 550ms ease",
     },
-    "main":{
-        "property":{
+    "main": {
+        "property": {
             "width": "100%",
             "height": "84vh",
-            "padding" : "15rem 0rem",
+            "padding": "15rem 0rem",
             "align_items": "center",
-            "justify_content" : "start",
+            "justify_content": "start",
         },
     },
 }
@@ -74,13 +81,15 @@ class Main:
                 "Hi - I'm Sebastian",
                 font_size=["2rem", "2.85rem", "4rem", "5rem", "5rem"],
                 font_weight="900",
-                _dark = {
-                    "background" : "linear-gradient(to right, #e1e1e1, #757575)", #not working
-                    "background_clip" : "text",
+                _dark={
+                    # not working
+                    "background": "linear-gradient(to right, #e1e1e1, #757575)",
+                    "background_clip": "text",
                 }
             ),
-            rx.heading("👋", font_size=["2rem", "2.85rem", "4rem", "5rem", "5rem"]),
-            spacing = "2",
+            rx.heading("👋", font_size=[
+                       "2rem", "2.85rem", "4rem", "5rem", "5rem"]),
+            spacing="2",
         )
 
     def compile_desktop_component(self):
@@ -104,8 +113,13 @@ def landing() -> rx.Component:
     return rx.vstack(
         header,
         main,
+        _light = {
+          "background":"radial-gradient(circle, rgba(0,0,0,0.35) 1px, tansparent 1px)",
+          "background_size" : "25px 25px",
+        },
         background="radial-gradient(circle, rgba(255,255,255,0.09) 2px, transparent 2px)",
         background_size="25px 25px",
+        style = dots,
     )
 
 
