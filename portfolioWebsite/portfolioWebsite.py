@@ -53,6 +53,14 @@ css: dict = {
             "justify_content": "start",
         },
     },
+    "project_heading": {
+        "property": {
+            "width": "100%",
+            "height": "42vh",
+            "padding": "15rem 0rem",
+            "align_items": "center",
+        }
+    }
 }
 
 
@@ -98,7 +106,6 @@ class Main:
                     "-webkit-background-clip": "text",
                     "-webkit-text-fill-color": "transparent"
                 }
-
             ),
             rx.heading("👋", font_size=[
                        "2rem", "2.85rem", "4rem", "5rem", "5rem"],
@@ -107,6 +114,8 @@ class Main:
             spacing="2",
         )
 
+        # self.spacer : rx.Spacer = rx.spacer(spacing = "2"),
+
         # method : create socials
 
         # method : create badges
@@ -114,7 +123,7 @@ class Main:
         self.badge_stack_max: rx.Hstack = rx.hstack(spacing="1")
         self.badge_stack_min: rx.Vstack = rx.vstack(spacing="2")
         titles: list = ["Software Engineer",
-                        "UI/UX Designer", "Python Developer"]
+                        "AI Developer", "Python Developer"]
         self.badge_stack_max.children = [
             self.create_badges(title) for title in titles]
         self.badge_stack_min.children = [
@@ -123,30 +132,61 @@ class Main:
         # need to do the links
         """image link: will be stored locally
             page title: in the code
-            actual link 
+            actual link
             """
-        self.crumbs: rx.Breadcrumb = rx.breadcrumb(spacing = "8px", seperator = "/")
+        self.bread_crumb_max: rx.Hstack = rx.hstack(spacing="1")
+        self.bread_crumb_min: rx.Vstack = rx.vstack(spacing="2")
         data: list = [
-            ["/github.png", "Title1", "#"],
-            ["/github.png", "Title2", "#"],
-            ["/github.png", "Title3", "#"],
+            ["/github-circle.svg", "Git", "https://github.com/SebastianSSandoval"],
+            ["/github.png", "LinkedIn", "#"],
+            ["/github.png", "Resume",
+                "https://docs.google.com/document/d/1u76fNt5Fy3ReJyvqSD8_ks6CoQRmnwP0dNFFxw82PBU/edit?usp=sharing"],
         ]
-        self.crumbs.children = [self.create_breadcrumb_item(
+        self.bread_crumb_max.children = [self.create_breadcrumb_item(
+            path, title, url) for path, title, url in data]
+        self.bread_crumb_min.children = [self.create_breadcrumb_item(
             path, title, url) for path, title, url in data]
 
+        self.project_heading: rx.Heading = rx.heading(
+            "Project list",
+            font_size=["1.33rem", "1.9rem", "2.67rem", "3.33rem", "3.33rem"],
+            font_weight="900",
+            _dark={
+                        "background": "linear-gradient(to right, #e1e1e1, #757575)",
+                        "background_clip": "text",
+                        "-webkit-background-clip": "text",
+                        "-webkit-text-fill-color": "transparent"
+            }
+        )
+
+        self.project_grid: rx.Grid = rx.grid(
+        rx.foreach(
+                rx.Var.range(9),
+                #FIXME instead have each card be a button that links to each project
+                lambda i: rx.card(f"Card {i + 1}", height="10vh"),
+            ),
+            columns = "3",
+            spacing = "3",
+            width = "80%",
+            
+    )
+
+
     def create_breadcrumb_item(self, path: str, title: str, url: str | None):
-        return rx.breadcrumb_item(
+        return rx.link(
+            rx.center(
                 rx.image(
                     src=path,
                     width="24px",
                     height="24px",
-                    _dark={"filter": "brightness(0) invert (1)"}
+                    _dark={"filter": "invert (1)"},
                 ),
-                rx.breadcrumb_link(
-                title,
-                href=url,
-                _dark={"color": "rgba(255,255,255,0.7)"},
-                )
+            ),
+            title,
+            href = url,
+            _dark = {"color": "rgba(255,255,255,0.7)"},
+            is_external = True,
+
         )
 
     def create_badges(self, title: str) -> None:
@@ -161,12 +201,22 @@ class Main:
                      ],
         )
 
+    
+
     def compile_desktop_component(self):
         return rx.tablet_and_desktop(
             rx.vstack(
                 self.name,
+                rx.spacer(spacing="1"),
                 self.badge_stack_max,
-                self.crumbs,
+                rx.spacer(spacing="1"),
+                self.bread_crumb_max,
+                rx.spacer(spacing="1"),
+                self.project_heading,
+                rx.spacer(spacing="1"),
+                self.project_grid,
+                # self.project board
+
                 style=css.get("main").get("property"),
             ),
         )
@@ -175,8 +225,14 @@ class Main:
         return rx.mobile_only(
             rx.vstack(
                 self.name,
+                rx.spacer(spacing="1"),
                 self.badge_stack_min,
-                self.crumbs,
+                rx.spacer(spacing="1"),
+                self.bread_crumb_min,
+                rx.spacer(spacing="1"),
+                self.project_heading,
+                rx.spacer(spacing="1"),
+                self.project_grid,
                 style=css.get("main").get("property"),
 
 
