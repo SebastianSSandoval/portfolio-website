@@ -1,6 +1,6 @@
 import reflex as rx
 from reflex.style import toggle_color_mode
-
+form links import *
 
 class State(rx.State):
     """The app state."""
@@ -96,7 +96,7 @@ class Main:
         self.box: rx.Box = rx.box(width="100%")
         self.name: rx.Hstack = rx.hstack(
             rx.heading(
-                "Hi - I'm Sebastian",
+                f"Hi - I'm {name}",
                 font_size=["2rem", "2.85rem", "4rem", "5rem", "5rem"],
                 font_weight="900",
 
@@ -137,10 +137,9 @@ class Main:
         self.bread_crumb_max: rx.Hstack = rx.hstack(spacing="1")
         self.bread_crumb_min: rx.Vstack = rx.vstack(spacing="2")
         data: list = [
-            ["/github-circle.svg", "Git", "https://github.com/SebastianSSandoval"],
+            ["/github-circle.svg", "Git", githubLink],
             ["/github.png", "LinkedIn", "#"],
-            ["/github.png", "Resume",
-                "https://docs.google.com/document/d/1u76fNt5Fy3ReJyvqSD8_ks6CoQRmnwP0dNFFxw82PBU/edit?usp=sharing"],
+            ["/github.png", "Resume", resume],
         ]
         self.bread_crumb_max.children = [self.create_breadcrumb_item(
             path, title, url) for path, title, url in data]
