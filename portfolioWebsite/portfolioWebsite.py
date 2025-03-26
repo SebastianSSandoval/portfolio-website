@@ -1,6 +1,7 @@
 import reflex as rx
 from reflex.style import toggle_color_mode
-form links import *
+#from links import name, resume, githubLink
+
 
 class State(rx.State):
     """The app state."""
