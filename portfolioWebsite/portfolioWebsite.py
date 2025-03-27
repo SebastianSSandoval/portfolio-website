@@ -1,6 +1,10 @@
 import reflex as rx
 from reflex.style import toggle_color_mode
-#from links import name, resume, githubLink
+#from links import *
+
+name = "Sebastian"
+resume =  "https://docs.google.com/document/d/1u76fNt5Fy3ReJyvqSD8_ks6CoQRmnwP0dNFFxw82PBU/edit?usp=sharing"
+githubLink = "https://github.com/SebastianSSandoval"
 
 
 class State(rx.State):
@@ -139,7 +143,7 @@ class Main:
         self.bread_crumb_min: rx.Vstack = rx.vstack(spacing="2")
         data: list = [
             ["/github-circle.svg", "Git", githubLink],
-            ["/github.png", "LinkedIn", "#"],
+            ["/linkedin2.png", "LinkedIn", "#"],
             ["/github.png", "Resume", resume],
         ]
         self.bread_crumb_max.children = [self.create_breadcrumb_item(
@@ -149,6 +153,7 @@ class Main:
 
         self.project_heading: rx.Heading = rx.heading(
             "Project list",
+            text_align = "left",
             font_size=["1.33rem", "1.9rem", "2.67rem", "3.33rem", "3.33rem"],
             font_weight="900",
             _dark={
@@ -175,12 +180,15 @@ class Main:
     def create_breadcrumb_item(self, path: str, title: str, url: str | None):
         return rx.link(
             rx.center(
-                rx.image(
-                    src=path,
-                    width="24px",
-                    height="24px",
-                    _dark={"filter": "invert (1)"},
+                rx.box(
+                    rx.image(
+                        src=path,
+                        width="48px",
+                        height="48px",
+                    ),
+                    style={"filter": "invert (1)"},
                 ),
+                spacing  =  "9",
             ),
             title,
             href = url,
@@ -192,6 +200,7 @@ class Main:
     def create_badges(self, title: str) -> None:
         return rx.badge(
             title,
+            size = "3",
             variant="solid",
             padding=["0.15rem 0.35rem ",
                      "0.15rem 0.35rem ",
